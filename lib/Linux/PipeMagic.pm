@@ -18,17 +18,19 @@ our @ISA = qw(Exporter);
 # If you do not need this, moving things directly into @EXPORT or @EXPORT_OK
 # will save memory.
 our %EXPORT_TAGS = ( 'all' => [ qw(
-	
+	systee
+    syssplice
+    SPLICE_F_MOVE
+    SPLICE_F_NONBLOCK
+    SPLICE_F_MORE
+    SPLICE_F_GIFT
 ) ] );
 
 our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
-our @EXPORT = qw(
-    systee
-    syssplice
-);
+our @EXPORT = qw();
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()
@@ -86,12 +88,22 @@ to another (tee).
 
 =item sysplice($fh_in, $fh_out, $num_bytes, $flags)
 
-Moves C<$num_bytes> from C<$fh_in> to C<$fh_out>.
+Moves C<$num_bytes> from C<$fh_in> to C<$fh_out>.  This is roughly equivilent to,
+
+    sysread($fh_in, my $buf, $num_bytes);
+    syswrite($fh_out, $buf);
+
+although the transfer takes place entirely in kernel-space.
+
+Returns the number of bytes transferred.
 
 =item systee($fh_in, $fh_out, $num_bytes, $flags)
 
 Copies C<$num_bytes> from C<$fh_in> to C<$fh_out>.  The filehandles must both
-be of pipes.
+be of pipes.  This works similarly to C<syssplice>, but does not advance the
+read pointer in C<$fh_in>.
+
+Returns the number of bytes transferred.
 
 =back
 

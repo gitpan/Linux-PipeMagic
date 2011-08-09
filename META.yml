@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Linux-PipeMagic
-version:            0.01
+version:            0.02
 abstract:           Perl extension to use the zero copy IO syscalls
 author:
     - Dave Lambley <cpan@davel.org.uk
@@ -9,8 +9,13 @@ distribution_type:  module
 configure_requires:
     ExtUtils::MakeMaker:  0
 build_requires:
-    ExtUtils::MakeMaker:  0
-requires:  {}
+    File::Slurp:  0
+    File::Temp:   0
+    Test::More:   0
+requires:
+    File::Slurp:  0
+    File::Temp:   0
+    Test::More:   0
 resources:
     repository:  http://github.com/davel/Linux-PipeMagic
 no_index:
