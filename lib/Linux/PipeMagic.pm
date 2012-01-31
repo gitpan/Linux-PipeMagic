@@ -20,6 +20,7 @@ our @ISA = qw(Exporter);
 our %EXPORT_TAGS = ( 'all' => [ qw(
 	systee
     syssplice
+    syssendfile
     SPLICE_F_MOVE
     SPLICE_F_NONBLOCK
     SPLICE_F_MORE
@@ -30,7 +31,7 @@ our @EXPORT_OK = ( @{ $EXPORT_TAGS{'all'} } );
 
 our @EXPORT = qw();
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub AUTOLOAD {
     # This AUTOLOAD is used to 'autoload' constants from the constant()
